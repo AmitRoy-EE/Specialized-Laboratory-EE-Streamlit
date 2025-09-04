@@ -1,0 +1,4 @@
+# Blacklist
+__pycache__
+/*.ipynb
+.vscode

@@ -1,0 +1,34 @@
+{
+    "time_steps": [
+      {
+        "time": 0,
+        "conditions": [
+          {
+            "condition": "P_pv > P_load && SoC < 1.0",
+            "action": "charge battery",
+            "amount": "min(P_pv - P_load, W_batt_max)"
+          },
+          {
+            "condition": "P_pv > P_load && SoC == 1.0",
+            "action": "feed into grid",
+            "amount": "P_pv - P_load"
+          },
+          {
+            "condition": "P_pv <= P_load && SoC > 0.0",
+            "action": "discharge battery",
+            "amount": "min(P_load - P_pv, W_batt_max)"
+          },
+          {
+            "condition": "P_pv <= P_load && SoC == 0.0",
+            "action": "purchase electricity",
+            "amount": "P_load - P_pv"
+          }
+        ],
+        "battery_update": {
+          "work": "min(max(P_charge - P_discharge, 0), W_batt_max)",
+          "SoC_update": "W_batt / W_batt_max"
+        }
+      }
+    ]
+  }
+  

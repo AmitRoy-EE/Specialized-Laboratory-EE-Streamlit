@@ -1,0 +1,18 @@
+[
+    {
+        "condition": "P_pv[t] <= P_load[t] and (t > 0 and SoC[t-1] > 0.0)",
+        "action": "P_discharge[t] = min(P_load[t] - P_pv[t], W_batt_max)"
+    },
+    {
+        "condition": "P_pv[t] > P_load[t] and (t == 0 or (t > 0 and SoC[t-1] < 1.0))",
+        "action": "P_charge[t] = min(P_pv[t] - P_load[t], W_batt_max)"
+    },
+    {
+        "condition": "P_pv[t] > P_load[t] and (t == 0 or (t > 0 and SoC[t-1] == 1.0))",
+        "action": "P_feed_in[t] = P_pv[t] - P_load[t]"
+    },
+    {
+        "condition": "P_pv[t] <= P_load[t] and (t == 0 or (t > 0 and SoC[t-1] == 0.0))",
+        "action": "P_purchase[t] = P_load[t] - P_pv[t]"
+    }
+]

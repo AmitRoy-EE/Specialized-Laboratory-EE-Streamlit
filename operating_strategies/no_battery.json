@@ -1,0 +1,10 @@
+[
+    {
+        "condition": "P_pv[t] > P_load[t]",
+        "action": "P_feed_in[t] = P_pv[t] - P_load[t]"
+    },
+    {
+        "condition": "P_pv[t] <= P_load[t]",
+        "action": "P_purchase[t] = P_load[t] - P_pv[t]"
+    }
+]

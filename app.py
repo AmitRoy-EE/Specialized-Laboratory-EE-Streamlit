@@ -49,8 +49,18 @@ with image_container_col1:
         """
         This app simulates the operation of a household energy system with a battery storage system.
         It is developed and used as part of the teaching lab "Optimal operation and sizing of a residential PV storage system" at Ruhr University Bochum.
-        For further information download the instructions.
+        For further information download the script below.
         """
+    )
+
+    with open("Teaching_lab___Storage_operation.pdf", "rb") as pdf_script:
+        PDFScriptbyte = pdf_script.read()
+
+    st.download_button(
+        label="Download Script",
+        data=PDFScriptbyte,
+        file_name="Teaching_lab___Storage_operation.pdf",
+        mime='application/octet-stream'
     )
 
     example_csv_files = {
@@ -191,7 +201,7 @@ with c1col1:
         )
 
         uploaded_file2 = st.file_uploader(
-            f"Upload a CSV-file: The input file must contain 1 row with the column names [time{separator_radio} load] and 168 rows of data (1 row per hour). This resembles a one-week's data series.",
+            f"Upload a CSV-file: The input file must contain 1 row with the column names [date_time{separator_radio} load] and 168 rows of data (1 row per hour). This resembles a one-week's data series.",
             type=["csv"],
             key="own_load_profiles_uploader",
         )
@@ -203,25 +213,25 @@ with c1col1:
                 uploaded_load_profile = None
 
             if uploaded_load_profile is not None:
-                uploaded_demand = uploaded_load_profile["profile_1"]
+                uploaded_demand = uploaded_load_profile["load"]
                 uploaded_demand_selectbox = st.selectbox(
                     "How would you like to use the uploaded profile?",
                     ("Standalone", "Combine with default load profile"),
                 )
                 units_own_load_profile_radio = st.radio(
                     "Select the units of the uploaded profile:",
-                    ["**[W]**", "**[kW]**"],
+                    ["**[W] (Recommended for Shelly Plug data)**", "**[kW]**"],
                 )
                 if uploaded_demand_selectbox == "Standalone":
                     str_own_load = "S"
-                    if units_own_load_profile_radio == "**[W]**":
+                    if units_own_load_profile_radio == "**[W] (Recommended for Shelly Plug data)**":
                         electricity_demand = uploaded_demand / 1000
                     else:
                         electricity_demand = uploaded_demand
 
                 elif uploaded_demand_selectbox == "Combine with default load profile":
                     str_own_load = "C"
-                    if units_own_load_profile_radio == "**[W]**":
+                    if units_own_load_profile_radio == "**[W] (Recommended for Shelly Plug data)**":
                         electricity_demand = electricity_demand + uploaded_demand / 1000
                     else:
                         electricity_demand = electricity_demand + uploaded_demand
@@ -233,15 +243,15 @@ with c1col2:
     st.markdown(
         """
         <style>
-        div[data-testid="column"]:nth-child(2) > div {
+        [data-testid="column"]:nth-of-type(2) > div {
             position: sticky;
-            top: 50px;  # Adjust this value as needed
-            height: 100vh;  # Make it full viewport height
+            top: 50px;
+            height: 100vh;
             overflow-y: auto;
             z-index: 1;
         }
         </style>
-    """,
+        """,
         unsafe_allow_html=True,
     )
 
@@ -250,6 +260,7 @@ with c1col2:
         ##### Please note: The y-axis range in the figure gets rescaled as the values are changed.
         """
     )
+
     plot_demand_and_pv_generation(date_time, electricity_demand, pv_generation)
 
 st.markdown("___")
@@ -385,7 +396,7 @@ def reset_own_battery_capacity():
 
 
 radio_battery_capacity = st.radio(
-    "Select the capacity of the battery [kWh]:", [6, 12, 18], index=1, on_change=reset_own_battery_capacity
+    "Select the capacity of the battery [kWh]:", [6, 12, 18], index=0, on_change=reset_own_battery_capacity
 )
 
 own_battery_capacity_value = st.number_input(
@@ -861,6 +872,7 @@ with st.expander("Data Sources for Default Data"):
 with st.expander("Show session_state (only for debug)"):
     st.session_state
 
+st.markdown("[Gitlab Repository](https://gitlab.ruhr-uni-bochum.de/ee/NeuesFachlabor)")
 with open(".version") as version_file:
     version = version_file.read()
 st.write(f"App version: {version}")

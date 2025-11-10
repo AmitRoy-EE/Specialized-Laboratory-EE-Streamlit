@@ -87,10 +87,10 @@ def load_custom_load_profile(uploaded_file, separator):
         uploaded_load_profile = pd.read_csv(uploaded_file, sep=separator, engine="python")
         if len(uploaded_load_profile) != 168:
             return None, f"Please provide exactly 168 value rows. Found {len(uploaded_load_profile)} rows with values."
-        elif not all(col in ["date_time", "profile_1"] for col in uploaded_load_profile.columns):
+        elif not all(col in ["date_time", "load"] for col in uploaded_load_profile.columns):
             return (
                 None,
-                f"Please rename the columns to match ['date_time'{separator}  'profile_1']! Found {uploaded_load_profile.columns.to_list()}.",
+                f"Please rename the columns to match ['date_time'{separator}  'load']! Found {uploaded_load_profile.columns.to_list()}.",
             )
         else:
             return uploaded_load_profile, None

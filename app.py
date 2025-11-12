@@ -53,13 +53,13 @@ with image_container_col1:
         """
     )
 
-    with open("1_Script", "rb") as pdf_script:
+    with open("Teaching_lab___Storage_operation.pdf", "rb") as pdf_script:
         PDFScriptbyte = pdf_script.read()
 
     st.download_button(
         label="Download Script",
         data=PDFScriptbyte,
-        file_name="1_Script",
+        file_name="Teaching_lab___Storage_operation.pdf",
         mime='application/octet-stream'
     )
 
@@ -396,7 +396,7 @@ def reset_own_battery_capacity():
 
 
 radio_battery_capacity = st.radio(
-    "Select the capacity of the battery [kWh]:", [3, 6, 9], index=1, on_change=reset_own_battery_capacity
+    "Select the capacity of the battery [kWh]:", [6, 12, 18], index=0, on_change=reset_own_battery_capacity
 )
 
 own_battery_capacity_value = st.number_input(

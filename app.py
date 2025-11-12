@@ -53,13 +53,13 @@ with image_container_col1:
         """
     )
 
-    with open("Teaching_lab___Storage_operation.pdf", "rb") as pdf_script:
+    with open("1_Script", "rb") as pdf_script:
         PDFScriptbyte = pdf_script.read()
 
     st.download_button(
         label="Download Script",
         data=PDFScriptbyte,
-        file_name="Teaching_lab___Storage_operation.pdf",
+        file_name="1_Script",
         mime='application/octet-stream'
     )
 

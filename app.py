@@ -396,7 +396,7 @@ def reset_own_battery_capacity():
 
 
 radio_battery_capacity = st.radio(
-    "Select the capacity of the battery [kWh]:", [6, 12, 18], index=0, on_change=reset_own_battery_capacity
+    "Select the capacity of the battery [kWh]:", [3, 6, 9], index=1, on_change=reset_own_battery_capacity
 )
 
 own_battery_capacity_value = st.number_input(

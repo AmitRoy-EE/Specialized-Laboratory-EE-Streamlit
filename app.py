@@ -475,7 +475,7 @@ def simulate_and_show_results(feed_in_tariff, electricity_price_customer, CO2_em
         "P_discharge",
         "feed_in_tariff",
         "electricity_price_customer",
-        "CO2_emissions",
+        "CO2_emissions_specific",
     }
 
     P_charge = pd.Series(0.0, index=date_time.index, name="P_charge")

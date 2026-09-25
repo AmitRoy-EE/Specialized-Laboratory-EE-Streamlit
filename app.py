@@ -286,7 +286,10 @@ with c2col1:
 
     st.markdown("VAT (**V**alue-**A**dded **T**ax) of 19% will be applied")
 
-    apply_additional_costs = st.checkbox("Apply additional costs.")
+    apply_additional_costs = st.checkbox(
+    "Apply additional costs.",
+    value=True
+)
 
     elec_price_radio = st.radio(
         "Select time series for electricity price:",

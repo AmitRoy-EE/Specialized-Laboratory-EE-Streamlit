@@ -97,7 +97,7 @@ with image_container_col2:
     st.image(
         "images/second_draft_household.png",
         caption="Figure 0: Scheme of the energy system household. The demand node is depicted as a circle, the units and the grid as icons and connecting lines are shown as arrows.",
-        use_column_width=True,
+        use_container_width=True,
     )
 
 
